@@ -2,21 +2,24 @@
 
 package cryptography
 
-import b64 "encoding/base64"
+import (
+	b64 "encoding/base64"
+	hex "encoding/hex"
+	"log"
+)
 
-// HexToBase64 takes a string in hex and returns a base64 string
-func HexToBase64(data string) string {
-
+// StringToBase64 takes a string in hex and returns a base64 string
+func StringToBase64(data string) string {
 	sEnc := b64.StdEncoding.EncodeToString([]byte(data))
 	return sEnc
-	// fmt.Println(sEnc)
+}
 
-	// sDec, _ := b64.StdEncoding.DecodeString(sEnc)
-	// fmt.Println(string(sDec))
-	// fmt.Println()
+// HexToAsciitring takes a string in hex and returns []byte
+func HexToAsciitring(s string) string {
+	decoded, err := hex.DecodeString(s)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// uEnc := b64.URLEncoding.EncodeToString([]byte(data))
-	// fmt.Println(uEnc)
-	// uDec, _ := b64.URLEncoding.DecodeString(uEnc)
-	// fmt.Println(string(uDec))
+	return string(decoded)
 }
