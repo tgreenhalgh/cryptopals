@@ -14,8 +14,8 @@ func StringToBase64(data string) string {
 	return sEnc
 }
 
-// HexToAsciitring takes a string in hex and returns []byte
-func HexToAsciitring(s string) string {
+// HexToASCIIString takes a string in hex and returns []byte
+func HexToASCIIString(s string) string {
 	decoded, err := hex.DecodeString(s)
 	if err != nil {
 		log.Fatal(err)
