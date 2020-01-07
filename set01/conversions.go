@@ -5,7 +5,6 @@ package cryptography
 import (
 	b64 "encoding/base64"
 	hex "encoding/hex"
-	"fmt"
 	"log"
 	"strconv"
 )
@@ -27,17 +26,6 @@ func HexToASCIIString(s string) string {
 	}
 
 	return string(decoded)
-}
-
-// HexToBin converts a hex string to bin
-func HexToBin(hex string) (string, error) {
-	ui, err := strconv.ParseUint(hex, 16, 64)
-	if err != nil {
-		return "", err
-	}
-
-	// %016b indicates base 2, zero padded, with 16 characters
-	return fmt.Sprintf("%016b", ui), nil
 }
 
 // FixedXOR takes two stringd of HEX and XORs them, returning a HEX string
