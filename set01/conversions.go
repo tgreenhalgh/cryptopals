@@ -5,6 +5,7 @@ package cryptography
 import (
 	b64 "encoding/base64"
 	hex "encoding/hex"
+	"fmt"
 	"log"
 	"strconv"
 )
@@ -20,8 +21,15 @@ func StringToBase64(data string) string {
 
 // HexToASCIIString takes a string in hex and returns []byte
 func HexToASCIIString(s string) string {
-	decoded, err := hex.DecodeString(s)
+	var s1 = "0"
+	if len(s)%2 != 0 {
+		s1 += s
+	} else {
+		s1 = s
+	}
+	decoded, err := hex.DecodeString(s1)
 	if err != nil {
+		fmt.Println("error", len(s1))
 		log.Fatal(err)
 	}
 
