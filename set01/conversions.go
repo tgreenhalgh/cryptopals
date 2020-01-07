@@ -56,9 +56,6 @@ func FixedXOR(s1 string, s2 string) string {
 			panic(err)
 		}
 		temp := strconv.FormatInt(h1^h2, 16)
-		if err != nil {
-			panic(err)
-		}
 		hex += temp
 	}
 	return hex
