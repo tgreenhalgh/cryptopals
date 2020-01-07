@@ -8,6 +8,9 @@ import (
 	"log"
 )
 
+// WARNING:
+// Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
+
 // StringToBase64 takes a string in hex and returns a base64 string
 func StringToBase64(data string) string {
 	sEnc := b64.StdEncoding.EncodeToString([]byte(data))
