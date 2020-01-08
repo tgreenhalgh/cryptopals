@@ -11,7 +11,6 @@ import (
 /*
 	Exercise 1
 */
-
 // ConvertHexToBase64 takes a string of hex, converts it to ascii, then converts that to base64
 func ConvertHexToBase64(s string) string {
 	hex := cr.HexToASCIIString(s)
@@ -22,6 +21,7 @@ func ConvertHexToBase64(s string) string {
 /*
 	Exercise 2
 */
+// Write a function that takes two equal-length buffers and produces their XOR combination.
 func exerciseTwo(s1 string, s2 string) string {
 	return cr.FixedXOR(s1, s2)
 }
@@ -53,8 +53,9 @@ func exerciseThree(s1 string) string {
 		tempScore := cr.DecodedFreq(text)
 
 		// looking for the closest distribution to English
-		if math.Abs(expected-tempScore) < scoreDiff {
-			scoreDiff = math.Abs(expected - tempScore)
+		tempDiff := math.Abs(expected - tempScore)
+		if tempDiff < scoreDiff {
+			scoreDiff = tempDiff
 			cleartext = text
 		}
 	}
