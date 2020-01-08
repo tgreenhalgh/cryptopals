@@ -21,15 +21,9 @@ func StringToBase64(data string) string {
 
 // HexToASCIIString takes a string in hex and returns []byte
 func HexToASCIIString(s string) string {
-	var s1 = "0"
-	if len(s)%2 != 0 {
-		s1 += s
-	} else {
-		s1 = s
-	}
-	decoded, err := hex.DecodeString(s1)
+	decoded, err := hex.DecodeString(s)
 	if err != nil {
-		fmt.Println("error", len(s1))
+		fmt.Println("error", len(s))
 		log.Fatal(err)
 	}
 
@@ -52,6 +46,9 @@ func FixedXOR(s1 string, s2 string) string {
 			panic(err)
 		}
 		temp := strconv.FormatInt(h1^h2, 16)
+		if len(temp) == 1 {
+			temp = "0" + temp
+		}
 		hex += temp
 	}
 	return hex

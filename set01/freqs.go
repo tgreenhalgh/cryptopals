@@ -7,53 +7,36 @@ import (
 // from https://en.wikipedia.org/wiki/Letter_frequency
 // and http://www.data-compression.com/english.html for " " (spaces)
 var englishFreq = map[string]float64{
-	// ETAOIN = .51147
-	// ETAOIN SHRDLU = 0.99773
-	"a": .08167,
-	"b": .01492,
-	"c": .02782,
-	"d": .04253,
-	"e": .12702,
-	"f": .02228,
-	"g": .02015,
-	"h": .06094,
-	"i": .06966,
-	"j": .00153,
-	"k": .00772,
-	"l": .04025,
-	"m": .02406,
-	"n": .06749,
-	"o": .07507,
-	"p": .01929,
-	"q": .00095,
-	"r": .05987,
-	"s": .06327,
-	"t": .09056,
-	"u": .02758,
-	"v": .00978,
-	"w": .02360,
-	"x": .00150,
-	"y": .01974,
-	"z": .00074,
-	" ": .19182,
+	"e": .12702, "t": .09056, "a": .08167,
+	"o": .07507, "i": .06966, "n": .06749,
+	"s": .06327, "h": .06094, "r": .05987,
+	"d": .04253, "l": .04025, "c": .02782,
+	"u": .02758, "m": .02406, "w": .02360,
+	"f": .02228, "g": .02015, "y": .01974,
+	"p": .01929, "b": .01492, "v": .00978,
+	"k": .00772, "j": .00153, "x": .00150,
+	"q": .00095, "z": .00074, " ": .19182,
 }
 
 // DecodedFreq generates a map of the decoded string
 func DecodedFreq(s string) float64 {
-	const LETTERS = "ETAOIN SHRDLU"
-	var score float64
-	length := len(s)
+	var length float64
+	var chi2 float64
 	var freqMap = map[string]float64{}
 
 	for i := 0; i < len(s); i++ {
-		freqMap[string(s[i])]++
-	}
-
-	for key, value := range freqMap {
-		if strings.Contains(LETTERS, strings.ToLower(key)) {
-			score += (value / float64(length))
+		l := strings.ToLower(string(s[i]))
+		if l == " " || (l >= "a" && l <= "z") {
+			freqMap[string(s[i])]++
+			length++
 		}
 	}
 
-	return score
+	for k, v := range freqMap {
+		expected := length * englishFreq[strings.ToLower(k)]
+		diff := v - expected
+		chi2 += diff * diff / expected
+	}
+
+	return chi2
 }
