@@ -3,6 +3,7 @@ package main
 import (
 	cr "cryptopals/set01"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -30,7 +31,11 @@ func exerciseTwo(s1 string, s2 string) string {
 */
 // Single-byte XOR cipher
 func exerciseThree(s1 string) string {
-	var score float32
+	// expected is from English freq tables, looking at "ETAOIN"
+	// const expected = .51147
+	// expected is from English freq tables, looking at "ETAOIN SHRDLU"
+	const expected = 0.99773
+	scoreDiff := 1.0
 	var cleartext string
 	var hexChar string
 
@@ -45,9 +50,11 @@ func exerciseThree(s1 string) string {
 		repString := strings.Repeat(hexChar, len(s1)/2)
 		hex := cr.FixedXOR(s1, repString)
 		text := cr.HexToASCIIString(hex)
-		tempScore := cr.CalcFreq(text)
-		if tempScore > score {
-			score = tempScore
+		tempScore := cr.DecodedFreq(text)
+
+		// looking for the closest distribution to English
+		if math.Abs(expected-tempScore) < scoreDiff {
+			scoreDiff = math.Abs(expected - tempScore)
 			cleartext = text
 		}
 	}

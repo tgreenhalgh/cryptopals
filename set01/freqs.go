@@ -1,8 +1,14 @@
 package cryptography
 
+import (
+	"strings"
+)
+
 // from https://en.wikipedia.org/wiki/Letter_frequency
 // and http://www.data-compression.com/english.html for " " (spaces)
-var englishFreq = map[string]float32{
+var englishFreq = map[string]float64{
+	// ETAOIN = .51147
+	// ETAOIN SHRDLU = 0.99773
 	"a": .08167,
 	"b": .01492,
 	"c": .02782,
@@ -32,12 +38,21 @@ var englishFreq = map[string]float32{
 	" ": .19182,
 }
 
-// CalcFreq is a test function
-func CalcFreq(s string) float32 {
-	var score float32
+// DecodedFreq generates a map of the decoded string
+func DecodedFreq(s string) float64 {
+	const LETTERS = "ETAOIN SHRDLU"
+	var score float64
+	length := len(s)
+	var freqMap = map[string]float64{}
 
 	for i := 0; i < len(s); i++ {
-		score += englishFreq[string(s[i])]
+		freqMap[string(s[i])]++
+	}
+
+	for key, value := range freqMap {
+		if strings.Contains(LETTERS, strings.ToLower(key)) {
+			score += (value / float64(length))
+		}
 	}
 
 	return score
