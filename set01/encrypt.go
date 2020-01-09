@@ -4,7 +4,6 @@ package cryptography
 
 import (
 	hex "encoding/hex"
-	"fmt"
 	"strconv"
 )
 
@@ -25,7 +24,6 @@ func RKXOR(key string, pt string) string {
 
 	src := []byte(pt)
 	encodedPt := hex.EncodeToString(src)
-	fmt.Println(len(encodedPt))
 
 	src = []byte(key)
 	encodedKey := hex.EncodeToString(src)
