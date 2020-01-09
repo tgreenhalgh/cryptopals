@@ -40,7 +40,7 @@ func exerciseThree(s1 string) []string {
 	var results []string
 
 	// XOR by a single byte
-	for i := 16; i < 256; i++ { // i = 21
+	for i := 0; i < 256; i++ {
 		// convert to hex
 		hexChar = strconv.FormatInt(int64(i), 16)
 		if len(hexChar)%2 != 0 {
