@@ -128,17 +128,18 @@ func (a ByScore) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByScore) Less(i, j int) bool { return a[i].score < a[j].score }
 
 func main() {
-	fmt.Println("Exercise one:\n", ConvertHexToBase64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"))
-	fmt.Println()
-	fmt.Println("Exercise two:\n", exerciseTwo("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965"))
-	fmt.Println()
-	res := exerciseThree("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736", 2)
-	fmt.Println()
-	fmt.Println("Exercise three:")
-	for _, v := range res {
-		fmt.Println(v)
-	}
-	fmt.Println()
-	fmt.Println("Exercise four:")
-	exerciseFour(6)
+	// fmt.Println("Exercise one:\n", ConvertHexToBase64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"))
+	// fmt.Println()
+	// fmt.Println("Exercise two:\n", exerciseTwo("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965"))
+	// fmt.Println()
+	// res := exerciseThree("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736", 2)
+	// fmt.Println()
+	// fmt.Println("Exercise three:")
+	// for _, v := range res {
+	// 	fmt.Println(v)
+	// }
+	// fmt.Println()
+	// fmt.Println("Exercise four:")
+	// exerciseFour(6)
+	fmt.Println(cr.RKXOR("ICE", "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"))
 }
