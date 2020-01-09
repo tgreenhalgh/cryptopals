@@ -34,7 +34,11 @@ func exerciseTwo(s1 string, s2 string) string {
 	Exercise 3
 */
 // Single-byte XOR cipher
-func exerciseThree(s1 string) []string {
+func exerciseThree(s1 string, limit int) []string {
+	if limit == 0 {
+		limit = 5
+	}
+
 	var hexChar string
 	var scores = []score{}
 	var results []string
@@ -57,25 +61,11 @@ func exerciseThree(s1 string) []string {
 		}
 	}
 	sort.Sort(ByScore(scores))
-	// for _, t := range scores {
-	// 	check := true
-	// 	for _, l := range t.text {
-	// 		if check && l < 19 || l > 164 {
-	// 			// if check && l > 255 {
-	// 			check = false
-	// 			break
-	// 		}
-	// 	}
-	// 	if check {
-	// 		results = append(results, t.text)
-	// 	}
-	// }
-	// if len(results) > 6 {
-	// 	return results[:6]
-	// }
-	for i := 0; i < 3; i++ {
+
+	for i := 0; i < limit; i++ {
 		results = append(results, scores[i].text)
 	}
+
 	return results
 }
 
@@ -83,8 +73,11 @@ func exerciseThree(s1 string) []string {
 Exercise four
 */
 //One of the 60-character strings in the file has been encrypted by single-character XOR.
-func exerciseFour() {
-	decoded := [][]string{}
+func exerciseFour(limit int) {
+	if limit == 0 {
+		limit = 6
+	}
+	decoded := []string{}
 
 	file, err := os.Open("set01/04data.txt")
 	if err != nil {
@@ -94,9 +87,20 @@ func exerciseFour() {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		res := exerciseThree(scanner.Text())
+		res := exerciseThree(scanner.Text(), limit)
 		if len(res) > 0 {
-			decoded = append(decoded, res)
+			for _, t := range res {
+				check := true
+				for _, l := range t {
+					if check && l < 9 || l > 164 {
+						check = false
+						break
+					}
+				}
+				if check {
+					decoded = append(decoded, t)
+				}
+			}
 		}
 	}
 
@@ -105,9 +109,7 @@ func exerciseFour() {
 	}
 
 	for _, v := range decoded {
-		for _, t := range v {
-			fmt.Println(t)
-		}
+		fmt.Println(v)
 	}
 }
 
@@ -126,13 +128,17 @@ func (a ByScore) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByScore) Less(i, j int) bool { return a[i].score < a[j].score }
 
 func main() {
-	// fmt.Println("Exercise one:\n", ConvertHexToBase64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"))
-	// fmt.Println("Exercise two:\n", exerciseTwo("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965"))
-	res := exerciseThree("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
+	fmt.Println("Exercise one:\n", ConvertHexToBase64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"))
+	fmt.Println()
+	fmt.Println("Exercise two:\n", exerciseTwo("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965"))
+	fmt.Println()
+	res := exerciseThree("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736", 2)
+	fmt.Println()
 	fmt.Println("Exercise three:")
 	for _, v := range res {
 		fmt.Println(v)
 	}
-	// fmt.Println("Exercise four:")
-	// exerciseFour()
+	fmt.Println()
+	fmt.Println("Exercise four:")
+	exerciseFour(6)
 }
